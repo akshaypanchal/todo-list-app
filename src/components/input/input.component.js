@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import {useSelector, useDispatch, useStore} from 'react-redux';
+import React, { useState } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import './input.style.css';
-import addItemsInTodoList from '../../actions/todoItemActions.component';
-import Button from '../button/button.component';
+import {addItemsInTodoList, removeItemsInTodoList} from '../../actions/todoItemActions.component';
 
 const Input = () =>{
     // declaring the dispatch variable with useDispatch
     const dispatch =  useDispatch();
+    let itemArray;
 
     const newArray = useSelector(state=>state.todoItemsArray)
 
@@ -20,10 +20,9 @@ const Input = () =>{
 
     const addTodoListData = () =>{
 
-    if(input!=""){    
+    if(input!==""){    
         dispatch(addItemsInTodoList({input}));
         setInputData("");
-        console.log({input});
     }
     else{
         alert("Please add valid input!!!");
@@ -34,16 +33,20 @@ const Input = () =>{
 
 
     const renderArray = () =>{
-        console.log(newArray);
-        let buttonComponentArray;
         if(newArray.length >0){
-              buttonComponentArray = newArray.map(item=>{
-              return   <p key={item.input}>{item.input}</p>
+              itemArray = newArray.map((item,index)=>{
+              return  (
+                        <div key={item} >
+                            <p key={index}>{item.input}</p>
+                            <button key={index} onClick={()=>dispatch(removeItemsInTodoList({item}))}>Remove the Item</button>
+                            <hr key={index}/>
+                        </div>
+                    );    
               });
 
         }
 
-    return <div>{buttonComponentArray}</div>
+    return <div>{itemArray}</div>
     
     }
 

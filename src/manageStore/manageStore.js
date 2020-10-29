@@ -5,7 +5,6 @@ import {createStore} from 'redux';
 const ADD_DATA_TO_TODOLIST = "ADD_DATA_TO_TODOLIST";
 const REMOVE_DATA_FROM_TODOLIST = "REMOVE_DATA_FROM_TODOLIST";
 
-
 const defaultState = {
     todoItemsArray : []
 }
@@ -19,7 +18,17 @@ const setTodoListItemData = (state=defaultState, action)=>{
                     todoItemsArray:[...state.todoItemsArray, action.data]
                 }
         case REMOVE_DATA_FROM_TODOLIST:
-            return state;
+            let itemValue = action.data.item;
+            const index = state.todoItemsArray.indexOf(itemValue);
+             state.todoItemsArray.splice(index,1);
+            // console.log(state.todoItemsArray);
+            console.log(state);
+            // return newState;
+            return {
+                todoItemsArray: [ state.todoItemsArray ]
+            }
+            
+            
         default:
             return state;
     }
