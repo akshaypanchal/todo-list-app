@@ -39,10 +39,10 @@ const Input = () => {
         if (newArray.length > 0) {
             itemArray = newArray.map((item, index) => {
                 return (
-                    <div key={item} >
-                        <p key={index}>{item.input}</p>
-                        <button key={index} onClick={() => dispatch(removeItemsInTodoList({ item }))}>Remove the Item</button>
-                        <hr key={index} />
+                    <div key={"div"+index} >
+                        <p key={"p"+index}>{item.input}</p>
+                        <button key={"button"+index} onClick={() => dispatch(removeItemsInTodoList({ item }))}>Remove the Item</button>
+                        <hr />
                     </div>
                 );
             });
